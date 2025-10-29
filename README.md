@@ -2,6 +2,8 @@
 
 Proyecto ______.
 
+Miembros: Grabiel Castro Benitez, Johan ________.
+
 ---
 
 ## 🧠 Descripción
