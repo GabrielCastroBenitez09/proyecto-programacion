@@ -39,3 +39,19 @@ class EntidadSalud:                          #Añadir caracteristicas por tipo d
     def pago_sueldos(self):
         for empleado in self.personal_medico.values():
             self.capital -= empleado.sueldo
+
+    def agendar_cita(self, paciente, paciente, hora, fecha, especialidad, modalidad, medico):
+        cita = Cita(entidad_salud = self, paciente, hora, fecha, especialidad, modalidad, medico)
+        self.citas_agendadas[especialidad] = cita
+        paciente.citas[especialidad] = cita
+
+    def agendar_cirugia(self, paciente, paciente, hora, fecha, especialidad, cirujano):
+        cirugia = Cirugia(entidad_salud = self, paciente, hora, fecha, especialidad, cirujano)
+        self.citas_agendadas[especialidad] = cirugia
+        paciente.citas[especialidad] = cirugia
+
+    def facturar(self, pago):
+        self._capital += pago  #Falta añadir validación de pago completo
+
+
+        

@@ -31,19 +31,7 @@ class Paciente(Persona):
     def __len__(self):
         return len(self.citas)
 
-    #No se si cambiar agendar_cita() a un metodo externo a paciente dado que son varias las excepciones
-    #y se podria considerar añadir la posibilidad de al inicializar la entidad de salud, pasarle como atributo el catalogo de servicios
-    def agendar_cita(self, especialidad, fecha, hora, modalidad, doctor, entidad_salud):
-        if self.edad >= 18 and especialidad == "Pediatria":
-            raise PacienteInvalidoError("Las citas de pediatria son exclusivas para menores de edad")
-        elif especialidad not in doctor.especialidades:
-            raise MedicoInvalidoError(f"El profesional seleccionado no esta capacitado para dar citas de {self.especialidad}")
-        self.citas[especialidad] = Cita(self, hora, fecha, especialidad, modalidad, doctor)
-        doctor.agenda[especialidad] = Cita(self, hora, fecha, especialidad, modalidad, doctor)
-        entidad_salud.citas_agendadas[especialidad] = Cita(self, hora, fecha, especialidad, modalidad, doctor)
-
-    def facturar(self, entidad_salud, pago):
-        entidad_salud._capital += pago  #Falta añadir validación de pago completo
+    
 
 
 #Posibilidad de añadir hoja de vida, con el historial de trabajos y posibles marcas en la hoja de vida (sanciones, despidos por faltas, etc)
