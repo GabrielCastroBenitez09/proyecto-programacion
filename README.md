@@ -1,8 +1,8 @@
 # 📌 Proyecto Programación 2
 
-Proyecto ______.
+Proyecto ____.
 
-Miembros: Grabiel Castro Benitez, Johan ________.
+Miembros: Grabiel Hernan Castro Benitez, Johan Eduardo Salazar Ramirez.
 
 ---
 
@@ -89,10 +89,8 @@ Para desplegar este proyecto en un entorno de producción:
 ## 🛠️ Construido Con
 
 - [Python](https://www.python.org/) - Lenguaje de programación
-- [Django](https://www.djangoproject.com/) - Framework web
-- [PostgreSQL](https://www.postgresql.org/) - Sistema de base de datos
-- [Docker](https://www.docker.com/) - Contenedores para despliegue
 
+##### De aqui en adelante no sirve
 ---
 
 ## 🛣️ Roadmap
