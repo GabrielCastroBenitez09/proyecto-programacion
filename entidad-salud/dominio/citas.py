@@ -1,92 +1,37 @@
-class Persona:
-    def __init__(self, nombre, edad, id, email, numero_telefonico):
-        self.nombre , self.id, self.email, self.numero_telefonico, self.edad = nombre, id, email, numero_telefonico, edad
+class Cita:
+    def __init__(self, entidad_salud, paciente, hora, fecha, especialidad, modalidad, medico):   #Añair el valor de las citas y cirugias
+        if especialidad not in entidad_salud.servicios:
+            raise AlgoError(f"{entidad_salud.__name__} no ofrece este servicio")
+        if not isinstance(medico (Medico, Cirujano)):                                 #Considerar añadir cuestiones de financiamiento
+            raise MedicoInvalidoError("El Medico elegido no esta habilitado para realizar citas medicas")
+        else:
+            self.paciente, self.especialidad, self.medico, = paciente, especialidad, medico
+            self.hora, self.fecha, self.modalidad = hora, fecha, modalidad
+            for servicio in entidad_salud.servicios:
+                self.precio = servicio["Precio"]
+
+    def __repr__(self):
+        return f"""CITA DE {self.especialidad.upper()}
+        Paciente: {self.paciente}
+        Edad: {self.edad}
+        Fehca y Hora: {self.hora_fecha}
+        Modalidad: {self.modalidad}
+        Medico Asignado: {self.medico.nombre}"""
 
     def __str__(self):
-        return {self.nombre}
+        return f"Cita {self.modalidad} de {self.especialidad} agendada para {self.hora}. {self.paciente.nombre}"
+
+
+class Cirugia(Cita):
+    def __init__(self, paciente, hora, fecha, especialidad, cirujano):
+        if isinstance(cirujano, Cirujano):
+            super().__init__(paciente, hora, fecha, especialidad, modalidad = "Presencial", medico = cirujano)
+        else:
+            raise MedicoInvalidoError("El Medico elegido no hace parte del personal hailitado para realizar cirugias")
 
     def __repr__(self):
-        return f"""
-        Nombre: {self.nombre}
+        return f"""CIRUGIA DE {self.especialidad.upper()}
+        Paciente: {self.paciente}
         Edad: {self.edad}
-        Email: {self.email}
-        """
-    #Podria el __len__ ser por la edad, pero realmente no creo que sea relevante
-
-
-class Paciente(Persona):
-    def __init__(self, nombre, edad, id, email, numero_telefonico, sexo, genero):
-        super().__init__(nombre, edad, id, email, numero_telefonico)
-        self.sexo, self.genero = sexo, genero
-        self.citas = {}
-
-    def __repr__(self):
-        return f"""PACIENTE
-        Nombre: {self.nombre}
-        Edad: {self.edad}
-        Genero: {self.genero}
-        Numero Telefonico: {self.numero_telefonico}
-        """
-
-    def __len__(self):
-        return len(self.citas)
-
-    #No se si cambiar agendar_cita() a un metodo externo a paciente dado que son varias las excepciones
-    #y se podria considerar añadir la posibilidad de al inicializar la entidad de salud, pasarle como atributo el catalogo de servicios
-    def agendar_cita(self, especialidad, fecha, hora, modalidad, doctor, entidad_salud):
-        if self.edad >= 18 and especialidad == "Pediatria":
-            raise PacienteInvalidoError("Las citas de pediatria son exclusivas para menores de edad")
-        elif especialidad not in doctor.especialidades:
-            raise MedicoInvalidoError(f"El profesional seleccionado no esta capacitado para dar citas de {self.especialidad}")
-        self.citas[especialidad] = Cita(self, hora, fecha, especialidad, modalidad, doctor)
-        doctor.agenda[especialidad] = Cita(self, hora, fecha, especialidad, modalidad, doctor)
-        entidad_salud.citas_agendadas[especialidad] = Cita(self, hora, fecha, especialidad, modalidad, doctor)
-
-    def facturar(self, entidad_salud, pago):
-        entidad_salud._capital += pago  #Falta añadir validación de pago completo
-
-
-#Posibilidad de añadir hoja de vida, con el historial de trabajos y posibles marcas en la hoja de vida (sanciones, despidos por faltas, etc)
-#Sección de recomendaciones y referencias.  Añadir a la entidad de salud una valoración del profesional, para referir la referencia
-class Personal(Persona):
-    def __init__(self, nombre, edad, id, email, numero_telefonico, cargo):
-        super().__init__(nombre, edad, id, email, numero_telefonico)
-        self.cargo = cargo
-    def __repr__(self):
-        return f"""{self.cargo.upper()}
-        Nombre: {self.nombre}
-        Edad: {self.edad}
-        Numero Telefonico: {self.numero_telefonico}
-        Email: {self.email}
-        """
-
-
-class Enfermero(Personal):
-    def __init__(self, nombre, edad, id, email, numero_telefonico):
-        super().__init__(nombre, edad, id, email, numero_telefonico, cargo = "Enfermero/a")
-
-    def __repr__(self):
-        return super().__repr__()
-
-
-class Medico(Personal):
-    def __init__(self, nombre, edad, id, email, numero_telefonico, especialidades):
-        super().__init__(nombre, edad, id, email, numero_telefonico, cargo = "Medico")
-        self.especialidades = especialidades
-        self.agenda = {}
-
-    def __len__(self):
-        return len(self.agenda)
-
-    def __repr__(self):
-        return super().__repr__() + f"""
-        Especialidades: {self.especialidades}"""
-
-
-class Cirujano(Medico):
-    def __init__(self, nombre, edad, id, email, numero_telefonico, especialidades):
-        super().__init__(nombre, edad, id, email, numero_telefonico, especialidades)
-        self.cargo = "Cirujano"
-
-    def __repr__(self):
-        return super().__repr__()
+        Fehca y Hora: {self.hora_fecha}
+        Cirujano Asignado: {self.cirujano.nombre}"""
