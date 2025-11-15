@@ -1,81 +1,76 @@
 class Persona:
-    def __init__(self, nombre, edad, id, email, numero_telefonico):
-        self.nombre , self.id, self.email, self.numero_telefonico, self.edad = nombre, id, email, numero_telefonico, edad
+    def __init__(self, nombre, edad, sexo, id, email, numero_telefonico):
+        self.nombre, self.edad, self.sexo = nombre, edad, sexo
+        self.id, self.email, self.numero_telefonico = id, email, numero_telefonico
+
+    def __repr__(self):
+        return self.nombre
 
     def __str__(self):
-        return {self.nombre}
+        return f"""{self.nombre.upper()} - {self.id}"""
+    
+    def __eq__(self, other):
+        if isinstance(other, Persona):
+            return self.id == other.id
+            
 
-    def __repr__(self):
-        return f"""
-        Nombre: {self.nombre}
-        Edad: {self.edad}
-        Email: {self.email}
-        """
-    #Podria el __len__ ser por la edad, pero realmente no creo que sea relevante
-
-
-class Paciente(Persona):
-    def __init__(self, nombre, edad, id, email, numero_telefonico, sexo, genero):
-        super().__init__(nombre, edad, id, email, numero_telefonico)
-        self.sexo, self.genero = sexo, genero
+class Usuario_IPS(Persona):
+    def __init__(self, nombre, edad, id, email, numero_telefonico, sexo, genero, regimen):
+        super().__init__(nombre, edad, sexo, id, email, numero_telefonico)
+        self.afiliado = True
         self.citas = {}
+        
+        if regimen != "Subsidiado" and regimen != "Contributivo":
+            raise AfiliacionError("Tipo de regimen invalido")
+        else:
+            self.regimen = regimen
 
     def __repr__(self):
-        return f"""PACIENTE
-        Nombre: {self.nombre}
+        if self.afilidiado:
+            return f"""Nombre: {self.nombre}, Afiliación: ACTIVA, Regimen: {self.regimen}"""
+        return f"""Nombre: {self.nombre}, Afiliación: INACTIVA, Regimen: {self.regimen}"""
+            
+    def __str__(self):
+        return f"""{self.nombre.upper()}
+
+        DATOS PERSONALES
+        -----------------
+        ID: {self.id}
         Edad: {self.edad}
-        Genero: {self.genero}
-        Numero Telefonico: {self.numero_telefonico}
+        Sexo: {self.sexo}
+
+        DATOS DE CONTACTO
+        -----------------
+        Número Telefónico: {self.numero_telefonico}
+        Email: {self.email}
         """
 
     def __len__(self):
         return len(self.citas)
 
-    
 
 
-#Posibilidad de añadir hoja de vida, con el historial de trabajos y posibles marcas en la hoja de vida (sanciones, despidos por faltas, etc)
-#Sección de recomendaciones y referencias.  Añadir a la entidad de salud una valoración del profesional, para referir la referencia
-class Personal(Persona):
-    def __init__(self, nombre, edad, id, email, numero_telefonico, cargo):
-        super().__init__(nombre, edad, id, email, numero_telefonico)
-        self.cargo = cargo
+
+class Medico(Persona):
+    def __init__(self, nombre, edad, sexo, id, email, numero_telefonico, especialidades):
+        super().__init__(self, nombre, edad, sexo, id, email, numero_telefonico)
+        self.especialidades = especialidades
+        
     def __repr__(self):
-        return f"""{self.cargo.upper()}
-        Nombre: {self.nombre}
+        return f"""Nombre: {self.nombre}"""
+    
+    def __str__(self):
+        return f"""{self.nombre.upper()}
+        Medico
+        
+        DATOS PERSONALES
+        -----------------
+        ID: {self.id}
         Edad: {self.edad}
-        Numero Telefonico: {self.numero_telefonico}
+        Sexo: {self.sexo}
+
+        DATOS DE CONTACTO
+        -----------------
+        Número Telefónico: {self.numero_telefonico}
         Email: {self.email}
         """
-
-
-class Enfermero(Personal):
-    def __init__(self, nombre, edad, id, email, numero_telefonico):
-        super().__init__(nombre, edad, id, email, numero_telefonico, cargo = "Enfermero/a")
-
-    def __repr__(self):
-        return super().__repr__()
-
-
-class Medico(Personal):
-    def __init__(self, nombre, edad, id, email, numero_telefonico, especialidades):
-        super().__init__(nombre, edad, id, email, numero_telefonico, cargo = "Medico")
-        self.especialidades = especialidades
-        self.agenda = {}
-
-    def __len__(self):
-        return len(self.agenda)
-
-    def __repr__(self):
-        return super().__repr__() + f"""
-        Especialidades: {self.especialidades}"""
-
-
-class Cirujano(Medico):
-    def __init__(self, nombre, edad, id, email, numero_telefonico, especialidades):
-        super().__init__(nombre, edad, id, email, numero_telefonico, especialidades)
-        self.cargo = "Cirujano"
-
-    def __repr__(self):
-        return super().__repr__()
-
