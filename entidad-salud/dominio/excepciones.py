@@ -2,6 +2,9 @@ class UsuarioInvalidoError(Exception):
     """Excepción ___"""
     pass
 
+class AfiliacionError(Exception):
+    """Excepción ___"""
+    pass
 class MedicoInvalidoError(Exception):
     """Excepción ___"""
     pass

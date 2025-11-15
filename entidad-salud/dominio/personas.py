@@ -1,7 +1,9 @@
+from dominio.excepciones import AfiliacionError
+
 class Persona:
     def __init__(self, nombre, edad, sexo, id, email, numero_telefonico):
-        self.nombre, self.edad, self.sexo = nombre, edad, sexo
-        self.id, self.email, self.numero_telefonico = id, email, numero_telefonico
+        self.nombre, self.edad, self.sexo = nombre, edad, sexo   #Edad debe ser validado, por cuestiones de no menor o igual a 0
+        self.id, self.email, self.numero_telefonico = id, email, numero_telefonico  #sexo solo puede permitir 2 F o M
 
     def __repr__(self):
         return self.nombre
@@ -15,10 +17,11 @@ class Persona:
             
 
 class Usuario_IPS(Persona):
-    def __init__(self, nombre, edad, id, email, numero_telefonico, sexo, genero, regimen):
+    def __init__(self, nombre, edad, id, email, numero_telefonico, sexo, regimen):
         super().__init__(nombre, edad, sexo, id, email, numero_telefonico)
         self.afiliado = True
-        self.citas = {}
+        self.citas_activas = {}
+        self.historia_citas = {}
         
         if regimen != "Subsidiado" and regimen != "Contributivo":
             raise AfiliacionError("Tipo de regimen invalido")
