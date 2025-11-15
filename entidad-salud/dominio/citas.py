@@ -42,7 +42,3 @@ class Cita:
 
     def __repr__(self):
         return f"Cita {self.modalidad} de {self.especialidad} agendada para {self.hora}. {self.paciente.nombre}"
-    
-    def __eq__(self, other):
-        if isinstance(other, Cita):
-            return self.codigo_cita == other.codigo_cita
