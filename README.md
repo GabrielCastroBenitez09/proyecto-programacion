@@ -1,178 +1,70 @@
-# 📌 Proyecto Programación 2
+# 📌 Proyecto Programación II
 
-Proyecto ______.
+Proyecto de Sistema de Gestión para Entidad de Salud (IPS).
 
-Miembros: Grabiel Castro Benitez, Johan ________.
-
----
-
-## 🧠 Descripción
-
-Una descripción más detallada y técnica del proyecto, incluyendo sus principales características, su propósito y cómo funciona.
+Miembros: Grabiel Hernan Castro Benitez.
 
 ---
 
-## 🖼️ Visuales
+## Descripción
 
-| Vista principal       | Función destacada           |
-| --------------------- | --------------------------- |
-| ![main](img/main.png) | ![feature](img/feature.gif) |
+Proyecto enfocado en sistema de gestión de los usuarios de una entidad de salud. Aborda el regsitro de nuevos usuarios, la cancelación de la afiliación de los usuarios, el manejo y portal de consulta de los datos del usuario y su registro de citas medicas. Además controla la agenda de citas medicas y la facturación por parte de usuarios con los tipos de regimen soportados.
 
 ---
 
-## 🚀 Empezando
+## 🚀 Funcionamiento
 
-Estas instrucciones te guiarán para obtener una copia de este proyecto en funcionamiento en tu máquina local para propósitos de desarrollo y pruebas.
+Entidad de salud inicializada con una pequeña base de personal medico y un listado de servicios.
+
+El sistema permite:
+
+- Crear nuevos usuarios: Usuarios afiliados a la entidad de salud, registrando datos peronales (nombre, edad, sexo, id), datos de contacto (email, número de telefono)
+
+- Ver la lista de usuarios: Visualización de la lista completa de usuarios reistrados en la entidad de salud.
+
+- Agendar citas: Valido unicamente para usuarios afiliados a la entidad de salud, agenda citas en una fecha y una hora (dada en la duración de la cita) con los profesionales de salud de la entidad que cuenten con las credenciales necesarias. Se ofrecen citas con modalida presencial y virtual.
+
+- Cancelar citas: Cancelación de citas medicas por parte de los usuarios, elimina la cita de la base de datos, del listado de citas activas del usuarios y del horario del medico asignado.
+
+- Eliminar usuarios: Elimina el registro y la afiliación de los usuarios a la entidad de salud.
+
+- Ver la información del usuario: Lugar de consulta de datos del usuario.
+
+- Consultar citas activas: Permite a los usuarios consultar el listado de citas medicas activas, además de proporcionar el estado de facturación de la cita.
+
+- Facturación de citas: Recibe los pagos de citas medicas. Evalua cuestiones del regimen del paciente, gratis para usuarios de subsidiados, con coste y confirmación de pago para usuarios con regimen contributivos.
+
+- Cerrar el sistema: Salida del sistema, detiene operaciones y comandos.
+
+---
+
 
 ### 📋 Prerrequisitos
 
 - Sistema Operativo (por ejemplo, Ubuntu 20.04, Windows 10)
 - Lenguaje de programación: Python 3.10+
-- Framework: Django 4.2
-- Base de datos: PostgreSQL 13+
-- Otros...
 
 ### 🔧 Instalación
 
 ```bash
-# Paso 1: Clonar el repositorio
-git clone https://github.com/your-user/project.git
-cd project
+# Clonar el repositorio
+git clone https://github.com/tu-usuario/proyecto-programacion.git
+cd proyecto-programacion
 
-# Paso 2: Crear entorno virtual (opcional)
+# Crear entorno virtual (opcional)
 python -m venv venv
-source venv/bin/activate  # En Windows: venv\Scripts\activate
+.\.venv\Scripts\activate 
 
-# Paso 3: Instalar dependencias
-pip install -r requirements.txt
-
-# Paso 4: Configurar variables de entorno
-cp .env.example .env
-
-# Paso 5: Ejecutar la aplicación
-python main.py
+# Ejecutar la aplicación
+python .\entidad-salud\cli.py
 ```
 
----
-
-## 🧪 Ejecutando las Pruebas
-
-```bash
-# Ejecutar todas las pruebas
-pytest
-```
-
-### 🔄 Pruebas de Principio a Fin
-
-Estas pruebas cubren flujos completos de usuario como autenticación, creación de entidades, etc.
-
-### ⌨️ Pruebas de Estilo de Código
-
-```bash
-flake8 .
-black --check .
-```
-
----
-
-## 📦 Despliegue
-
-Para desplegar este proyecto en un entorno de producción:
-
-- Crear contenedor Docker (opcional)
-- Configurar servidor (Heroku, Railway, VPS)
-- Ejecutar migraciones y cargar datos iniciales
-- Configurar variables de entorno en producción
+Una vez ejecutada la aplicación, se despliega un menu de comandos, que se compone de los metodos y funcionalidades previamente descritas. Al marcar una de las opciones, se solicitaran datos especificos (información de usuarios, personal de la salud, horarios requeridos para las citas medicas, pagos, etc) para realizar las operaciones.
 
 ---
 
 ## 🛠️ Construido Con
 
 - [Python](https://www.python.org/) - Lenguaje de programación
-- [Django](https://www.djangoproject.com/) - Framework web
-- [PostgreSQL](https://www.postgresql.org/) - Sistema de base de datos
-- [Docker](https://www.docker.com/) - Contenedores para despliegue
 
 ---
-
-## 🛣️ Roadmap
-
-- [ ] Agregar autenticación por redes sociales
-- [ ] Mejorar rendimiento con caching
-- [ ] Agregar interfaz de usuario responsiva
-- [ ] Panel de administración avanzado
-
----
-
-## 🖇️ Contribuyendo
-
-Las contribuciones son lo que hacen a la comunidad de código abierto un lugar increíble para aprender, inspirar y crear. ¡Cualquier aporte es bienvenido!
-
-```md
-1. Haz fork del repositorio
-2. Crea una rama (`git checkout -b feature/NuevaCaracterística`)
-3. Commit de tus cambios (`git commit -m 'Agrega nueva característica'`)
-4. Push a tu rama (`git push origin feature/NuevaCaracterística`)
-5. Abre un Pull Request
-```
-
-Por favor, lee el [CONTRIBUTING.md](.github/CONTRIBUTING.md) para más detalles sobre cómo colaborar.
-
----
-
-## 📖 Wiki
-
-Puedes encontrar más documentación y guías en nuestra [Wiki](https://github.com/your/project/wiki)
-
----
-
-## 🛟 Soporte
-
-Si tienes algún problema o sugerencia, por favor abre un issue [aquí](https://github.com/your/project/issues).
-
----
-
-## 📌 Versionado
-
-Usamos [Git](https://git-scm.com) para el control de versiones y seguimos [Semantic Versioning](https://semver.org/).
-
-Consulta las [etiquetas del repositorio](https://github.com/your/project/tags) para versiones disponibles.
-
----
-
-## ✒️ Autores
-
-- **Brayan Diaz C** - _Trabajo inicial_ - [Brayan Diaz C](https://github.com/brayandiazc)
-
-Consulta también la lista de [contribuidores](https://github.com/your/project/contributors).
-
----
-
-## 📄 Licencia
-
-Este proyecto está bajo la Licencia [MIT](LICENSE.md).
-
----
-
-## ❤️ Apóyanos
-
-Si te gusta este proyecto y deseas apoyar su desarrollo, puedes hacerlo aquí:
-
-- [GitHub Sponsors](https://github.com/sponsors/brayandiazc)
-- [Ko-fi](https://ko-fi.com/brayandiazc)
-- [Patreon](https://patreon.com/brayandiazc)
-
----
-
-## 🎁 Agradecimientos
-
-Estamos agradecidos por las contribuciones de la comunidad a este proyecto. Si encontraste valor en este trabajo, puedes:
-
-- Compartir el proyecto 📤
-- Invitarnos un café ☕
-- Iniciar un issue o PR 🙌
-- Dejar tu agradecimiento con un comentario 💬
-
----
-
-⌨️ con ❤️ por [Brayan Diaz C](https://github.com/brayandiazc) 😊

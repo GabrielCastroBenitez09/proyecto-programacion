@@ -1,7 +1,11 @@
+from dominio.excepciones import AfiliacionError
+from dominio.regimen import Subsidiado, Contributivo
+
 class Persona:
+    """Clase base Persona"""
     def __init__(self, nombre, edad, sexo, id, email, numero_telefonico):
-        self.nombre, self.edad, self.sexo = nombre, edad, sexo
-        self.id, self.email, self.numero_telefonico = id, email, numero_telefonico
+        self.nombre, self.edad, self.sexo = nombre, edad, sexo   
+        self.id, self.email, self.numero_telefonico = id, email, numero_telefonico  
 
     def __repr__(self):
         return self.nombre
@@ -15,18 +19,29 @@ class Persona:
             
 
 class Usuario_IPS(Persona):
-    def __init__(self, nombre, edad, id, email, numero_telefonico, sexo, genero, regimen):
+    """Clase Usuario que hereda de Persona.
+        Inicializa los atributos de los usarios de la entidad de salud"""
+    def __init__(self, nombre, edad, id, email, numero_telefonico, sexo, regimen):
         super().__init__(nombre, edad, sexo, id, email, numero_telefonico)
         self.afiliado = True
-        self.citas = {}
+        self.citas_activas = {}
         
-        if regimen != "Subsidiado" and regimen != "Contributivo":
-            raise AfiliacionError("Tipo de regimen invalido")
+        if regimen == "Subsidiado":
+            self.regimen = Subsidiado()
+        elif regimen == "Contributivo":
+            self.regimen = Contributivo()
         else:
-            self.regimen = regimen
+            raise AfiliacionError("Tipo de regimen invalido")
 
-    def __repr__(self):
-        if self.afilidiado:
+    def cancelar_cita(self, codigo_cita):
+        """Cancela una cita"""
+        if codigo_cita not in self.citas_activas:
+            raise UsuarioInvalidoError(f"Cita {codigo_cita} no está activa o no existe.")
+        cita_cancelada = self.citas_activas.pop(codigo_cita)
+        return f"Cita {codigo_cita} cancelada exitosamente."
+    
+    def afiliacion(self):
+        if self.afiliado:
             return f"""Nombre: {self.nombre}, Afiliación: ACTIVA, Regimen: {self.regimen}"""
         return f"""Nombre: {self.nombre}, Afiliación: INACTIVA, Regimen: {self.regimen}"""
             
@@ -46,15 +61,16 @@ class Usuario_IPS(Persona):
         """
 
     def __len__(self):
-        return len(self.citas)
-
-
-
+        return len(self.citas_activas)
+    
 
 class Medico(Persona):
+    """Clase Medio que hereda de Persona.
+        Reservado para el personal medico de la entidad de salud"""
     def __init__(self, nombre, edad, sexo, id, email, numero_telefonico, especialidades):
-        super().__init__(self, nombre, edad, sexo, id, email, numero_telefonico)
+        super().__init__(nombre, edad, sexo, id, email, numero_telefonico)
         self.especialidades = especialidades
+        self.citas_agendadas = {}
         
     def __repr__(self):
         return f"""Nombre: {self.nombre}"""
@@ -74,3 +90,6 @@ class Medico(Persona):
         Número Telefónico: {self.numero_telefonico}
         Email: {self.email}
         """
+    
+    def __len__(self):
+        return len(self.citas_agendadas)

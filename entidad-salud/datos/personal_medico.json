@@ -1,0 +1,72 @@
+[{
+        "ID": "10001",
+        "Nombre": "Yolanda Parada",
+        "Edad": 35,
+        "Sexo": "F",
+        "Email": "ana.beltran@ips.com",
+        "Número de telefono": "234654865",
+        "Especialidades": ["Medicina General"]
+    },
+{
+        "ID": "10002",
+        "Nombre": "Juan Nieto",
+        "Edad": 58,
+        "Sexo": "M",
+        "Email": "carlos.diaz@ips.com",
+        "Número de telefono": "548734654",
+        "Especialidades": ["Pediatría", "Cardiología"]
+    },
+{
+        "ID": "10003",
+        "Nombre": "Juliana Mendez",
+        "Edad": 38,
+        "Sexo": "F",
+        "Email": "carlos.diaz@ips.com",
+        "Número de telefono": "86456388",
+        "Especialidades": ["Cardiología"]
+    },
+{
+        "ID": "10004",
+        "Nombre": "Carlos Díaz",
+        "Edad": 26,
+        "Sexo": "M",
+        "Email": "carlos.diaz@ips.com",
+        "Número de telefono": "236756543",
+        "Especialidades": ["Odontología"]
+    },
+{
+        "ID": "10005",
+        "Nombre": "Juan Morales",
+        "Edad": 46,
+        "Sexo": "M",
+        "Email": "carlos.diaz@ips.com",
+        "Número de telefono": "385346443",
+        "Especialidades": ["Odontología", "Medicina General"]
+    },
+{
+        "ID": "10006",
+        "Nombre": "Monica Castro",
+        "Edad": 29,
+        "Sexo": "F",
+        "Email": "monica.castro@ips.com",
+        "Número de telefono": "33246466543",
+        "Especialidades": ["Nutrición"]
+    },
+{
+        "ID": "10007",
+        "Nombre": "Alberto Luengas",
+        "Edad": 41,
+        "Sexo": "M",
+        "Email": "alberto.luengas@ips.com",
+        "Número de telefono": "3209236543",
+        "Especialidades": ["Terapia Física"]
+    },
+{
+        "ID": "10008",
+        "Nombre": "María Becerra",
+        "Edad": 33,
+        "Sexo": "F",
+        "Email": "maria.becerra@ips.com",
+        "Número de telefono": "320987623",
+        "Especialidades": ["Terapia Física", "Cardiología"]
+    }]
