@@ -1,3 +1,5 @@
+# Excepciones personalizadas
+
 class UsuarioInvalidoError(Exception):
     """Excepción ___"""
     pass

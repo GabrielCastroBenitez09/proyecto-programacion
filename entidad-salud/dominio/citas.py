@@ -1,9 +1,14 @@
-from dominio.excepciones import MedicoInvalidoError, UsuarioInvalidoError, AfiliacionError
+# Excepciones
+from dominio.excepciones import MedicoInvalidoError, UsuarioInvalidoError, AfiliacionError, TransaccionInvalidaError
 
 class Cita:
-    def __init__(self, codigo_cita, usuario, hora, fecha, especialidad, modalidad, medico):   #Añair el valor de las citas
-        self.codigo_cita = codigo_cita
-        self.facturada = False
+    """Objeto Cita Medica"""
+    def __init__(self, codigo_cita, usuario, fecha, hora_inicio, hora_fin, 
+                 especialidad, modalidad, medico, valor_cita):  
+        self.codigo_cita, self.fecha = codigo_cita, fecha, 
+        self.hora_inicio, self.hora_fin = hora_inicio, hora_fin
+        self.valor_cita, self.facturada = valor_cita, False
+        self.especialidad, self.modalidad = especialidad, modalidad
         
         if not usuario.afiliado:
             raise UsuarioInvalidoError("_______")
@@ -19,7 +24,7 @@ class Cita:
         return f"""CITA DE {self.especialidad.upper()}
         -----------------
         Código Cita: {self.codigo_cita}
-        Fehca y Hora: {self.hora_fecha}
+        Fehca y Hora: {self.fecha} 
         Especialidad: {self.expecialidad}
         Modalidad: {self.modalidad}
         
@@ -42,3 +47,29 @@ class Cita:
 
     def __repr__(self):
         return f"Cita {self.modalidad} de {self.especialidad} agendada para {self.hora}. {self.paciente.nombre}"
+
+    def __facturar__(self, usuario, pago):
+        if isinstance(usuario.regimen, Contributivo):
+            if pago == self.valor_cita:
+                self.facturada = True
+                return f"""CITA FACTURADA
+                
+                Especialidad: {self.expecialidad}
+                Código Cita: {self.codigo_cita}
+                Fehca y Hora: {self.fecha} 
+                Modalidad: {self.modalidad}
+                Doctor Asignado: {self.medico.nombre}"""
+            else:
+                raise TransaccionInvalidaError("""PAGO RECHAZADO - MONTO INCORRECTO""")
+            
+        elif isinstance(usuario.regimen, Subsidiado):
+            self.facturada = True
+            return f"""CITA FACTURADA
+            
+            Especialidad: {self.expecialidad}
+            Código Cita: {self.codigo_cita}
+            Fehca y Hora: {self.fecha} 
+            Modalidad: {self.modalidad}
+            Doctor Asignado: {self.medico.nombre}"""
+        else:
+            raise AfiliacionError("Tipo de afiliación invalida")
