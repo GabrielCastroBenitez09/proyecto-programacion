@@ -1,5 +1,6 @@
 # Excepciones
 from dominio.excepciones import MedicoInvalidoError, UsuarioInvalidoError, AfiliacionError, TransaccionInvalidaError
+from dominio.regimen import Subsidiado, Contributivo
 
 class Cita:
     """Objeto Cita Medica"""
@@ -25,7 +26,7 @@ class Cita:
         -----------------
         Código Cita: {self.codigo_cita}
         Fehca y Hora: {self.fecha} 
-        Especialidad: {self.expecialidad}
+        Especialidad: {self.especialidad}
         Modalidad: {self.modalidad}
         
         DATOS PACIENTE
@@ -48,13 +49,13 @@ class Cita:
     def __repr__(self):
         return f"Cita {self.modalidad} de {self.especialidad} agendada para {self.hora}. {self.paciente.nombre}"
 
-    def __facturar__(self, usuario, pago):
+    def facturar(self, usuario, pago):
         if isinstance(usuario.regimen, Contributivo):
             if pago == self.valor_cita:
                 self.facturada = True
                 return f"""CITA FACTURADA
                 
-                Especialidad: {self.expecialidad}
+                Especialidad: {self.especialidad}
                 Código Cita: {self.codigo_cita}
                 Fehca y Hora: {self.fecha} 
                 Modalidad: {self.modalidad}
@@ -66,10 +67,15 @@ class Cita:
             self.facturada = True
             return f"""CITA FACTURADA
             
-            Especialidad: {self.expecialidad}
+            Especialidad: {self.especialidad}
             Código Cita: {self.codigo_cita}
             Fehca y Hora: {self.fecha} 
             Modalidad: {self.modalidad}
             Doctor Asignado: {self.medico.nombre}"""
         else:
             raise AfiliacionError("Tipo de afiliación invalida")
+
+    def __eq__(self, other):
+        """Comparación de igualdad. Si dos citas tienen el mismo codigo con iguales"""
+        if isinstance(other, Cita):
+            return self.codigo_cita == other.codigo_cita

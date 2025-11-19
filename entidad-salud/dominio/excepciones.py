@@ -1,20 +1,20 @@
 # Excepciones personalizadas
 
 class UsuarioInvalidoError(Exception):
-    """Excepción ___"""
+    """Excepción para problemas con los usuariso"""
     pass
 
 class AfiliacionError(Exception):
-    """Excepción ___"""
+    """Excepción para problemas con la afiliación del usuario"""
     pass
 class MedicoInvalidoError(Exception):
-    """Excepción ___"""
+    """Excepciónpara problemas con el personal medico"""
     pass
 
 class HorrarioAgendadoError(Exception):
-    """Excepción ___"""
+    """Excepción para problemas con los horarios de citas medicas"""
     pass
 
 class TransaccionInvalidaError(Exception):
-    """Execpción ___"""
+    """Execpción para problemas con pagos"""
     pass
